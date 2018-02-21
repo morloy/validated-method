@@ -63,6 +63,10 @@ ValidatedMethod = class ValidatedMethod {
       args = {};
     }
 
+    if (!callback) {
+      callback = (err) => { if (err) throw err; };
+    }
+
     try {
       return this.connection.apply(this.name, [args], this.applyOptions, callback);
     } catch (err) {
