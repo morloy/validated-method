@@ -70,14 +70,7 @@ ValidatedMethod = class ValidatedMethod {
     try {
       return this.connection.apply(this.name, [args], this.applyOptions, callback);
     } catch (err) {
-      if (callback) {
-        // Get errors from the stub in the same way as from the server-side method
-        callback(err);
-      } else {
-        // No callback passed, throw instead of silently failing; this is what
-        // "normal" Methods do if you don't pass a callback.
-        throw err;
-      }
+      callback({ ...err, method: this.name });
     }
   }
 
